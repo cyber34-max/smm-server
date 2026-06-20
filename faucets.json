@@ -1,0 +1,16 @@
+[
+  {"name":"FaucetPay","url":"https://faucetpay.io/api/v1/claim","coin":"BTC","method":"POST"},
+  {"name":"ClaimFreeCoins","url":"https://claimfreecoins.io/api/claim","coin":"BTC","method":"POST"},
+  {"name":"Beefaucet","url":"https://beefaucet.org/api/claim","coin":"BTC","method":"POST"},
+  {"name":"FireFaucet","url":"https://firefaucet.win/api/claim","coin":"BTC","method":"POST"},
+  {"name":"Cointiply","url":"https://cointiply.com/api/claim","coin":"BTC","method":"POST"},
+  {"name":"FreeBitcoin","url":"https://freebitco.in/api/claim","coin":"BTC","method":"POST"},
+  {"name":"BonusBitcoin","url":"https://bonusbitcoin.co/api/claim","coin":"BTC","method":"POST"},
+  {"name":"Bitcoinker","url":"https://bitcoinker.com/api/claim","coin":"BTC","method":"POST"},
+  {"name":"AllCoins","url":"https://allcoins.io/api/claim","coin":"BTC","method":"POST"},
+  {"name":"FaucetCrypto","url":"https://faucetcrypto.com/api/claim","coin":"BTC","method":"POST"},
+  {"name":"DogeFaucet","url":"https://dogefaucet.com/api/claim","coin":"DOGE","method":"POST"},
+  {"name":"MoonDoge","url":"https://moondoge.co.in/api/claim","coin":"DOGE","method":"POST"},
+  {"name":"MoonLitecoin","url":"https://moonliteco.in/api/claim","coin":"LTC","method":"POST"},
+  {"name":"ETHFaucet","url":"https://ethfaucet.io/api/claim","coin":"ETH","method":"POST"}
+]

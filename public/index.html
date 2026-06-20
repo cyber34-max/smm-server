@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMM PRO MAX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0e17;
+            color: #e8edf5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.3); border-radius: 8px; }
+
+        .glass {
+            background: rgba(14,24,48,0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00d4ff, #7b2ffc, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .btn-primary { background: linear-gradient(135deg, #00d4ff, #7b2ffc); color: #fff; }
+        .btn-primary:hover { box-shadow: 0 8px 32px rgba(0,212,255,0.3); }
+        .btn-success { background: linear-gradient(135deg, #00ff88, #00d4ff); color: #000; }
+        .btn-danger { background: linear-gradient(135deg, #ff4757, #ff6b9d); color: #fff; }
+        .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #7a8daa; }
+        .btn-outline:hover { border-color: #00d4ff; color: #fff; }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* HEADER */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 24px; border-radius: 16px; margin-bottom: 24px;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo .icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, #00d4ff, #7b2ffc);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; color: #fff;
+        }
+        .logo h1 { font-size: 24px; font-weight: 900; }
+        .logo span { font-size: 12px; color: #7a8daa; display: block; font-weight: 400; }
+        .user-badge {
+            display: flex; align-items: center; gap: 12px;
+            padding: 8px 16px 8px 12px; border-radius: 100px;
+            background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.06);
+        }
+        .user-badge .avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #7b2ffc);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 14px; color: #fff;
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px; margin-bottom: 24px;
+        }
+        .stat-card {
+            padding: 20px; border-radius: 16px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: all 0.3s;
+        }
+        .stat-card:hover { border-color: rgba(0,212,255,0.2); transform: translateY(-4px); }
+        .stat-card .value { font-size: 32px; font-weight: 900; }
+        .stat-card .label { font-size: 12px; color: #7a8daa; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .cyan { color: #00d4ff; }
+        .green { color: #00ff88; }
+        .pink { color: #ff6b9d; }
+        .purple { color: #7b2ffc; }
+
+        /* GRID */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+        @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+        /* CARD */
+        .card { padding: 24px; border-radius: 16px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.04); }
+        .card-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .card-title i { color: #00d4ff; }
+
+        /* FORM */
+        .form-group { margin-bottom: 14px; }
+        .form-group label {
+            display: block; font-size: 12px; font-weight: 600; color: #7a8daa;
+            margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 12px 16px;
+            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px; color: #fff; font-size: 14px;
+            transition: all 0.3s; outline: none;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #00d4ff; box-shadow: 0 0 24px rgba(0,212,255,0.05);
+        }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+
+        /* LOG */
+        .log-box {
+            background: rgba(0,0,0,0.3); border-radius: 10px; padding: 14px;
+            max-height: 150px; overflow-y: auto; font-family: monospace; font-size: 12px; line-height: 1.8;
+        }
+        .log-box .time { color: #3d4f6a; margin-right: 8px; }
+        .log-box .success { color: #00ff88; }
+        .log-box .error { color: #ff4757; }
+        .log-box .warn { color: #ffd93d; }
+        .log-box .info { color: #00d4ff; }
+
+        /* HIDDEN */
+        .hidden { display: none !important; }
+
+        /* TOAST */
+        .toast-container {
+            position: fixed; bottom: 20px; right: 20px; z-index: 999;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .toast {
+            padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 14px;
+            animation: slideIn 0.3s ease; backdrop-filter: blur(12px);
+        }
+        .toast.success { background: rgba(0,255,136,0.15); border: 1px solid #00ff88; color: #00ff88; }
+        .toast.error { background: rgba(255,71,87,0.15); border: 1px solid #ff4757; color: #ff4757; }
+        .toast.info { background: rgba(0,212,255,0.15); border: 1px solid #00d4ff; color: #00d4ff; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 24px; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.04);
+            text-align: center; font-size: 13px; color: #3d4f6a;
+        }
+        .footer .heart { color: #ff6b9d; animation: heartbeat 1.6s infinite; display: inline-block; }
+        .footer .name { color: #00d4ff; font-weight: 600; }
+        .footer .partner { color: #ff6b9d; }
+        @keyframes heartbeat {
+            0%,100% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            56% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="header glass">
+        <div class="logo">
+            <div class="icon"><i class="fas fa-bolt"></i></div>
+            <div>
+                <h1 class="gradient-text">SMM PRO MAX</h1>
+                <span>Brutal · Auto Faucet · 10-in-1</span>
+            </div>
+        </div>
+        <div class="user-badge" id="userBadge">
+            <div class="avatar" id="userAvatar">G</div>
+            <span id="userName">Guest</span>
+        </div>
+    </header>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-card glass">
+            <div class="value cyan" id="statUsers">0</div>
+            <div class="label"><i class="fas fa-users"></i> Users</div>
+        </div>
+        <div class="stat-card glass">
+            <div class="value green" id="statClaims">0</div>
+            <div class="label"><i class="fas fa-coins"></i> Claims</div>
+        </div>
+        <div class="stat-card glass">
+            <div class="value pink" id="statSchedules">0</div>
+            <div class="label"><i class="fas fa-calendar"></i> Schedules</div>
+        </div>
+        <div class="stat-card glass">
+            <div class="value purple" id="statEarned">0</div>
+            <div class="label"><i class="fas fa-dollar-sign"></i> Earned</div>
+        </div>
+    </div>
+
+    <!-- AUTH SECTION -->
+    <div id="authSection">
+        <div class="grid-2">
+            <div class="card glass">
+                <div class="card-title"><i class="fas fa-user-plus"></i> Register</div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="regUsername" placeholder="Username..." />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Password..." />
+                </div>
+                <div class="form-group">
+                    <label>Email (optional)</label>
+                    <input type="email" id="regEmail" placeholder="Email..." />
+                </div>
+                <button class="btn btn-primary" id="registerBtn"><i class="fas fa-arrow-right"></i> Register</button>
+            </div>
+            <div class="card glass">
+                <div class="card-title"><i class="fas fa-sign-in-alt"></i> Login</div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" placeholder="Username..." value="admin" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Password..." value="admin123" />
+                </div>
+                <button class="btn btn-primary" id="loginBtn"><i class="fas fa-arrow-right"></i> Login</button>
+                <button class="btn btn-outline" id="guestBtn" style="margin-left:8px;"><i class="fas fa-user-astronaut"></i> Guest</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboardSection" class="hidden">
+
+        <!-- FAUCET -->
+        <div class="card glass">
+            <div class="card-title"><i class="fas fa-droplet"></i> FaucetPay Auto Claim</div>
+            <div class="grid-2">
+                <div>
+                    <div class="form-group">
+                        <label>Wallet Address</label>
+                        <input type="text" id="faucetWallet" placeholder="Masukkan wallet..." />
+                    </div>
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <select id="faucetCurrency">
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="DOGE">Dogecoin (DOGE)</option>
+                            <option value="LTC">Litecoin (LTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success" id="claimBtn"><i class="fas fa-hand-holding-usd"></i> Claim Now</button>
+                    <button class="btn btn-danger" id="logoutBtn" style="margin-left:8px;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+                <div>
+                    <div class="log-box" id="faucetLog">
+                        <div><span class="time">[faucet]</span><span class="info">Klik Claim untuk mulai</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVITY LOG -->
+        <div class="card glass">
+            <div class="card-title"><i class="fas fa-terminal"></i> Activity Log</div>
+            <div class="log-box" id="mainLog">
+                <div><span class="time">[system]</span><span class="info">🚀 Panel Brutal siap digunakan</span></div>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-primary" id="healthBtn"><i class="fas fa-heartbeat"></i> Health</button>
+                <button class="btn btn-danger" id="clearLogBtn"><i class="fas fa-eraser"></i> Clear Log</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>
+            <i class="fas fa-code"></i> Developer <span class="name">Thaipuri</span>
+            <span class="heart"><i class="fas fa-heart"></i></span>
+            Partner <span class="partner">Yuni Eka Lestari</span>
+        </div>
+        <div style="font-size:11px;margin-top:4px;">
+            🚀 Brutal 10-in-1 · Auto Faucet · 24/7
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ===== TOAST =====
+function showToast(msg, type = 'info') {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = `toast ${type}`;
+    t.textContent = msg;
+    c.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+}
+
+// ===== LOG =====
+function addLog(msg, type = 'info', target = 'mainLog') {
+    const c = document.getElementById(target);
+    const d = document.createElement('div');
+    d.innerHTML = `<span class="time">[${new Date().toLocaleTimeString()}]</span><span class="${type}">${msg}</span>`;
+    c.appendChild(d);
+    c.scrollTop = c.scrollHeight;
+}
+
+// ===== CHECK LOGIN =====
+function checkLogin() {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    const token = localStorage.getItem('token');
+    
+    if (token && user) {
+        document.getElementById('authSection').classList.add('hidden');
+        document.getElementById('dashboardSection').classList.remove('hidden');
+        document.getElementById('userName').textContent = user.username;
+        document.getElementById('userAvatar').textContent = user.username.charAt(0).toUpperCase();
+        addLog(`✅ Login sebagai ${user.username}`, 'success');
+        loadStats();
+    } else {
+        document.getElementById('authSection').classList.remove('hidden');
+        document.getElementById('dashboardSection').classList.add('hidden');
+        document.getElementById('userName').textContent = 'Guest';
+        document.getElementById('userAvatar').textContent = 'G';
+    }
+}
+
+// ===== REGISTER =====
+document.getElementById('registerBtn').addEventListener('click', async () => {
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    
+    if (!username || !password) {
+        showToast('⚠️ Username dan password wajib!', 'error');
+        return;
+    }
+    
+    try {
+        const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, email })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            showToast('✅ ' + data.message, 'success');
+            addLog('✅ ' + data.message, 'success');
+            checkLogin();
+        } else {
+            showToast('❌ ' + data.error, 'error');
+        }
+    } catch (err) {
+        showToast('❌ ' + err.message, 'error');
+    }
+});
+
+// ===== LOGIN =====
+document.getElementById('loginBtn').addEventListener('click', async () => {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    
+    if (!username || !password) {
+        showToast('⚠️ Username dan password wajib!', 'error');
+        return;
+    }
+    
+    try {
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            showToast('✅ ' + data.message, 'success');
+            addLog('✅ Login sebagai ' + data.user.username, 'success');
+            checkLogin();
+        } else {
+            showToast('❌ ' + data.error, 'error');
+        }
+    } catch (err) {
+        showToast('❌ ' + err.message, 'error');
+    }
+});
+
+// ===== GUEST =====
+document.getElementById('guestBtn').addEventListener('click', () => {
+    localStorage.setItem('user', JSON.stringify({ username: 'Guest_' + Date.now().toString().slice(-4) }));
+    localStorage.setItem('token', 'guest_token');
+    checkLogin();
+    showToast('👋 Masuk sebagai tamu', 'info');
+});
+
+// ===== LOGOUT =====
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    checkLogin();
+    showToast('👋 Logout berhasil', 'info');
+});
+
+// ===== FAUCET CLAIM =====
+document.getElementById('claimBtn').addEventListener('click', async () => {
+    const wallet = document.getElementById('faucetWallet').value.trim();
+    const currency = document.getElementById('faucetCurrency').value;
+    
+    if (!wallet) {
+        showToast('⚠️ Masukkan wallet address!', 'error');
+        return;
+    }
+    
+    try {
+        addLog('🔄 Processing claim...', 'info', 'faucetLog');
+        const res = await fetch('/api/faucet/claim', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ wallet, currency })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            addLog(`✅ +${data.claim.amount} ${currency} — Success!`, 'success', 'faucetLog');
+            showToast(`💰 +${data.claim.amount} ${currency}`, 'success');
+            document.getElementById('statClaims').textContent = data.stats.totalClaims || 0;
+            document.getElementById('statEarned').textContent = data.stats.totalEarned || 0;
+        } else {
+            addLog(`❌ ${data.error || 'Claim gagal'}`, 'error', 'faucetLog');
+            showToast(`❌ ${data.error || 'Claim gagal'}`, 'error');
+        }
+    } catch (err) {
+        addLog(`❌ Error: ${err.message}`, 'error', 'faucetLog');
+        showToast(`❌ Error: ${err.message}`, 'error');
+    }
+});
+
+// ===== HEALTH =====
+document.getElementById('healthBtn').addEventListener('click', async () => {
+    try {
+        const res = await fetch('/api/health');
+        const data = await res.json();
+        if (data.status === 'ok') {
+            addLog(`✅ Server OK — Uptime: ${Math.round(data.uptime)}s`, 'success');
+            showToast('✅ Server OK', 'success');
+        }
+    } catch (err) {
+        addLog('❌ Server offline', 'error');
+        showToast('❌ Server offline', 'error');
+    }
+});
+
+// ===== CLEAR LOG =====
+document.getElementById('clearLogBtn').addEventListener('click', () => {
+    document.getElementById('mainLog').innerHTML = '';
+    addLog('🧹 Log dibersihkan', 'info');
+});
+
+// ===== LOAD STATS =====
+async function loadStats() {
+    try {
+        const res = await fetch('/api/stats');
+        const data = await res.json();
+        document.getElementById('statUsers').textContent = data.users || 0;
+        document.getElementById('statClaims').textContent = data.claims || 0;
+        document.getElementById('statSchedules').textContent = data.schedules || 0;
+        document.getElementById('statEarned').textContent = data.earned || 0;
+    } catch (err) {}
+}
+
+// ===== INIT =====
+checkLogin();
+setInterval(loadStats, 10000);
+addLog('🚀 Panel Brutal siap digunakan', 'info');
+</script>
+
+</body>
+</html>
