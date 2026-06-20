@@ -1,11 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const { loadDB, saveDB } = require('../utils/db');
+const fs = require('fs');
+const path = require('path');
 const axios = require('axios');
 
-// ================================================================
-// DAFTAR FAUCET SUPPORT FAUCETPAY
-// ================================================================
+const DB_PATH = path.join(__dirname, '../../data/database.json');
+
+function loadDB() {
+    try {
+        if (fs.existsSync(DB_PATH)) {
+            return JSON.parse(fs.readFileSync(DB_PATH, 'utf8'));
+        }
+    } catch (e) {}
+    return { faucet: { claims: 0, earned: 0, history: [] } };
+}
+
+function saveDB(data) {
+    try {
+        const dir = path.dirname(DB_PATH);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+    } catch (e) {}
+}
 
 const FAUCETS = [
     { name: 'FaucetPay', url: 'https://faucetpay.io/api/v1/claim', coin: 'BTC' },
@@ -18,15 +34,7 @@ const FAUCETS = [
     { name: 'Bitcoinker', url: 'https://bitcoinker.com/api/claim', coin: 'BTC' },
     { name: 'AllCoins', url: 'https://allcoins.io/api/claim', coin: 'BTC' },
     { name: 'FaucetCrypto', url: 'https://faucetcrypto.com/api/claim', coin: 'BTC' },
-    { name: 'DogeFaucet', url: 'https://dogefaucet.com/api/claim', coin: 'DOGE' },
-    { name: 'MoonDoge', url: 'https://moondoge.co.in/api/claim', coin: 'DOGE' },
-    { name: 'MoonLitecoin', url: 'https://moonliteco.in/api/claim', coin: 'LTC' },
-    { name: 'ETHFaucet', url: 'https://ethfaucet.io/api/claim', coin: 'ETH' },
 ];
-
-// ================================================================
-// FUNGSI BANTUAN
-// ================================================================
 
 function getRandomUA() {
     const list = [
@@ -46,10 +54,6 @@ function getRandomDelay() {
 function getRandomIP() {
     return '192.168.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
 }
-
-// ================================================================
-// CLAIM SEMUA FAUCET
-// ================================================================
 
 async function claimAllFaucets(wallet) {
     const results = [];
@@ -91,10 +95,6 @@ async function claimAllFaucets(wallet) {
     return { total: results.length, success: successCount, failed: results.length - successCount, earned: totalEarned, results };
 }
 
-// ================================================================
-// ENDPOINT
-// ================================================================
-
 router.post('/claim', async (req, res) => {
     try {
         const { wallet, currency } = req.body;
@@ -107,7 +107,6 @@ router.post('/claim', async (req, res) => {
             return res.status(429).json({ error: 'Cooldown 30 detik', wait: Math.ceil((30000 - (Date.now() - lastClaim)) / 1000) });
         }
 
-        // Claim semua faucet
         const result = await claimAllFaucets(wallet);
 
         if (!db.faucet) db.faucet = { claims: 0, earned: 0, history: [], lastClaim: null };
