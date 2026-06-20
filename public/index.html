@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SMM PRO MAX</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#0a0e17;color:#fff;padding:20px}
+.glass{background:rgba(14,24,48,0.7);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.04)}
+.gradient-text{background:linear-gradient(135deg,#00d4ff,#7b2ffc,#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.btn{padding:12px 28px;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:all 0.3s}
+.btn-primary{background:linear-gradient(135deg,#00d4ff,#7b2ffc);color:#fff}
+.btn-success{background:linear-gradient(135deg,#00ff88,#00d4ff);color:#000}
+.btn-danger{background:linear-gradient(135deg,#ff4757,#ff6b9d);color:#fff}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.1);color:#7a8daa}
+.container{max-width:1000px;margin:0 auto}
+.header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-radius:16px;margin-bottom:24px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .icon{width:48px;height:48px;background:linear-gradient(135deg,#00d4ff,#7b2ffc);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff}
+.logo h1{font-size:24px;font-weight:900}
+.logo span{font-size:12px;color:#7a8daa;display:block}
+.user-badge{display:flex;align-items:center;gap:12px;padding:8px 16px;border-radius:100px;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.06)}
+.user-badge .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00d4ff,#7b2ffc);display:flex;align-items:center;justify-content:center;font-weight:700}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{padding:20px;border-radius:16px;text-align:center;border:1px solid rgba(255,255,255,0.04)}
+.stat-card .value{font-size:32px;font-weight:900}
+.stat-card .label{font-size:12px;color:#7a8daa;margin-top:4px;text-transform:uppercase}
+.cyan{color:#00d4ff}.green{color:#00ff88}.pink{color:#ff6b9d}.purple{color:#7b2ffc}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{padding:24px;border-radius:16px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.04)}
+.card-title{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.card-title i{color:#00d4ff}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:#7a8daa;margin-bottom:4px;text-transform:uppercase}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:10px;color:#fff;font-size:14px;outline:none}
+.form-group input:focus{border-color:#00d4ff}
+.log-box{background:rgba(0,0,0,0.3);border-radius:10px;padding:14px;max-height:150px;overflow-y:auto;font-family:monospace;font-size:12px;line-height:1.8}
+.log-box .time{color:#3d4f6a;margin-right:8px}
+.log-box .success{color:#00ff88}.log-box .error{color:#ff4757}.log-box .info{color:#00d4ff}
+.hidden{display:none}
+.toast-container{position:fixed;bottom:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px}
+.toast{padding:12px 24px;border-radius:12px;font-weight:600;font-size:14px;animation:slideIn 0.3s ease}
+.toast.success{background:rgba(0,255,136,0.15);border:1px solid #00ff88;color:#00ff88}
+.toast.error{background:rgba(255,71,87,0.15);border:1px solid #ff4757;color:#ff4757}
+.toast.info{background:rgba(0,212,255,0.15);border:1px solid #00d4ff;color:#00d4ff}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.footer{margin-top:24px;padding:20px 0;border-top:1px solid rgba(255,255,255,0.04);text-align:center;font-size:13px;color:#3d4f6a}
+.footer .heart{color:#ff6b9d;animation:heartbeat 1.6s infinite;display:inline-block}
+.footer .name{color:#00d4ff;font-weight:600}
+.footer .partner{color:#ff6b9d}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.3)}28%{transform:scale(1)}42%{transform:scale(1.15)}56%{transform:scale(1)}}
+@media(max-width:768px){.grid-2,.grid-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="header glass">
+<div class="logo"><div class="icon"><i class="fas fa-bolt"></i></div><div><h1 class="gradient-text">SMM PRO MAX</h1><span>Brutal · Auto Faucet · 10-in-1</span></div></div>
+<div class="user-badge"><div class="avatar" id="userAvatar">G</div><span id="userName">Guest</span></div>
+</header>
+<div class="stats-grid">
+<div class="stat-card glass"><div class="value cyan" id="statUsers">0</div><div class="label">Users</div></div>
+<div class="stat-card glass"><div class="value green" id="statClaims">0</div><div class="label">Claims</div></div>
+<div class="stat-card glass"><div class="value pink" id="statSchedules">0</div><div class="label">Schedules</div></div>
+<div class="stat-card glass"><div class="value purple" id="statEarned">0</div><div class="label">Earned</div></div>
+</div>
+<div id="authSection">
+<div class="grid-2">
+<div class="card glass"><div class="card-title"><i class="fas fa-user-plus"></i> Register</div>
+<div class="form-group"><label>Username</label><input type="text" id="regUsername" placeholder="Username"></div>
+<div class="form-group"><label>Password</label><input type="password" id="regPassword" placeholder="Password"></div>
+<div class="form-group"><label>Email</label><input type="email" id="regEmail" placeholder="Email"></div>
+<button class="btn btn-primary" id="registerBtn"><i class="fas fa-arrow-right"></i> Register</button></div>
+<div class="card glass"><div class="card-title"><i class="fas fa-sign-in-alt"></i> Login</div>
+<div class="form-group"><label>Username</label><input type="text" id="loginUsername" placeholder="Username" value="admin"></div>
+<div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Password" value="admin123"></div>
+<button class="btn btn-primary" id="loginBtn"><i class="fas fa-arrow-right"></i> Login</button>
+<button class="btn btn-outline" id="guestBtn"><i class="fas fa-user-astronaut"></i> Guest</button></div>
+</div></div>
+<div id="dashboardSection" class="hidden">
+<div class="card glass"><div class="card-title"><i class="fas fa-droplet"></i> FaucetPay Auto Claim</div>
+<div class="grid-2"><div>
+<div class="form-group"><label>Wallet / Email</label><input type="text" id="faucetWallet" placeholder="Masukkan wallet atau email"></div>
+<div class="form-group"><label>Currency</label><select id="faucetCurrency"><option value="BTC">Bitcoin</option><option value="DOGE">Dogecoin</option><option value="LTC">Litecoin</option><option value="ETH">Ethereum</option></select></div>
+<button class="btn btn-success" id="claimBtn"><i class="fas fa-hand-holding-usd"></i> Claim Now</button>
+<button class="btn btn-danger" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
+<div><div class="log-box" id="faucetLog"><div><span class="time">[faucet]</span><span class="info">Klik Claim</span></div></div></div></div></div>
+<div class="card glass"><div class="card-title"><i class="fas fa-shield-halved"></i> Bypass Engine</div>
+<div class="grid-2"><div>
+<div class="form-group"><label>URL</label><input type="text" id="bypassUrl" value="https://faucetpay.io"></div>
+<div class="form-group"><label>Mode</label><select id="bypassMode"><option value="adaptive">Adaptive</option><option value="random">Random</option></select></div>
+<button class="btn btn-primary" id="bypassBtn"><i class="fas fa-play"></i> Test Bypass</button></div>
+<div><div class="log-box" id="bypassLog"><div><span class="time">[bypass]</span><span class="info">Klik Test</span></div></div></div></div></div>
+<div class="card glass"><div class="card-title"><i class="fas fa-terminal"></i> Activity Log</div>
+<div class="log-box" id="mainLog"><div><span class="time">[system]</span><span class="info">🚀 Panel siap</span></div></div>
+<div style="margin-top:12px"><button class="btn btn-primary" id="healthBtn"><i class="fas fa-heartbeat"></i> Health</button>
+<button class="btn btn-danger" id="clearLogBtn"><i class="fas fa-eraser"></i> Clear</button></div></div>
+</div>
+<div class="footer"><div><i class="fas fa-code"></i> Developer <span class="name">Thaipuri</span> <span class="heart"><i class="fas fa-heart"></i></span> Partner <span class="partner">Yuni Eka Lestari</span></div>
+<div style="font-size:11px">🚀 Brutal 10-in-1 · 24/7</div></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+<script>
+function showToast(m,t){const c=document.getElementById("toastContainer"),d=document.createElement("div");d.className="toast "+t;d.textContent=m;c.appendChild(d);setTimeout(()=>d.remove(),3000);}
+function addLog(m,t,l="mainLog"){const c=document.getElementById(l),d=document.createElement("div");d.innerHTML="<span class=time>["+new Date().toLocaleTimeString()+"]</span><span class="+t+">"+m+"</span>";c.appendChild(d);c.scrollTop=c.scrollHeight;}
+function checkLogin(){const u=JSON.parse(localStorage.getItem("user")||"null");if(u){document.getElementById("authSection").classList.add("hidden");document.getElementById("dashboardSection").classList.remove("hidden");document.getElementById("userName").textContent=u.username;document.getElementById("userAvatar").textContent=u.username.charAt(0).toUpperCase();addLog("✅ Login sebagai "+u.username,"success");loadStats();}else{document.getElementById("authSection").classList.remove("hidden");document.getElementById("dashboardSection").classList.add("hidden");document.getElementById("userName").textContent="Guest";document.getElementById("userAvatar").textContent="G";}}
+document.getElementById("registerBtn").addEventListener("click",async()=>{const u=document.getElementById("regUsername").value.trim(),p=document.getElementById("regPassword").value.trim(),e=document.getElementById("regEmail").value.trim();if(!u||!p)return showToast("⚠️ Username dan password wajib!","error");try{const r=await fetch("/api/auth/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u,password:p,email:e})});const d=await r.json();if(d.success){showToast("✅ "+d.message,"success");addLog("✅ "+d.message,"success");}else showToast("❌ "+d.error,"error");}catch(err){showToast("❌ "+err.message,"error");}});
+document.getElementById("loginBtn").addEventListener("click",async()=>{const u=document.getElementById("loginUsername").value.trim(),p=document.getElementById("loginPassword").value.trim();if(!u||!p)return showToast("⚠️ Username dan password wajib!","error");try{const r=await fetch("/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u,password:p})});const d=await r.json();if(d.success){localStorage.setItem("user",JSON.stringify(d.user));showToast("✅ "+d.message,"success");checkLogin();}else showToast("❌ "+d.error,"error");}catch(err){showToast("❌ "+err.message,"error");}});
+document.getElementById("guestBtn").addEventListener("click",()=>{localStorage.setItem("user",JSON.stringify({username:"Guest_"+Date.now().toString().slice(-4)}));checkLogin();showToast("👋 Masuk sebagai tamu","info");});
+document.getElementById("logoutBtn").addEventListener("click",()=>{localStorage.removeItem("user");checkLogin();showToast("👋 Logout berhasil","info");});
+document.getElementById("claimBtn").addEventListener("click",async()=>{const w=document.getElementById("faucetWallet").value.trim(),c=document.getElementById("faucetCurrency").value;if(!w)return showToast("⚠️ Masukkan wallet!","error");try{addLog("🔄 Processing...","info","faucetLog");const r=await fetch("/api/faucet/claim",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({wallet:w,currency:c})});const d=await r.json();if(d.success){addLog("✅ +"+d.claim.amount+" "+c,"success","faucetLog");showToast("💰 +"+d.claim.amount+" "+c,"success");document.getElementById("statClaims").textContent=d.stats.totalClaims||0;document.getElementById("statEarned").textContent=d.stats.totalEarned||0;}else{addLog("❌ "+(d.error||"Claim gagal"),"error","faucetLog");showToast("❌ "+(d.error||"Claim gagal"),"error");}}catch(err){addLog("❌ Error: "+err.message,"error","faucetLog");showToast("❌ Error: "+err.message,"error");}});
+document.getElementById("bypassBtn").addEventListener("click",async()=>{const u=document.getElementById("bypassUrl").value.trim(),m=document.getElementById("bypassMode").value;try{addLog("🔄 Testing bypass "+u+" ("+m+")...","info","bypassLog");const r=await fetch("/api/bypass/test",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:u,mode:m})});const d=await r.json();if(d.success){addLog("✅ Bypass successful! ("+d.stats.rate+"% rate)","success","bypassLog");showToast("🛡️ Bypass successful!","success");}else{addLog("❌ Bypass failed","error","bypassLog");showToast("❌ Bypass failed","error");}}catch(err){addLog("❌ Error: "+err.message,"error","bypassLog");showToast("❌ "+err.message,"error");}});
+document.getElementById("healthBtn").addEventListener("click",async()=>{try{const r=await fetch("/api/health");const d=await r.json();if(d.status==="ok"){addLog("✅ Server OK — Uptime: "+Math.round(d.uptime)+"s","success");showToast("✅ Server OK","success");}}catch(err){addLog("❌ Server offline","error");showToast("❌ Server offline","error");}});
+document.getElementById("clearLogBtn").addEventListener("click",()=>{document.getElementById("mainLog").innerHTML="";addLog("🧹 Log dibersihkan","info");});
+async function loadStats(){try{const r=await fetch("/api/stats");const d=await r.json();document.getElementById("statUsers").textContent=d.users||0;document.getElementById("statClaims").textContent=d.claims||0;document.getElementById("statSchedules").textContent=d.schedules||0;document.getElementById("statEarned").textContent=d.earned||0;}catch(err){}}
+checkLogin();setInterval(loadStats,10000);addLog("🚀 Panel Brutal siap","info");
+</script></body></html>

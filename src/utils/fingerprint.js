@@ -1,0 +1,2 @@
+const crypto=require('crypto');function createSession(){return crypto.randomBytes(16).toString('hex');}function getRotatedIP(){return '192.168.1.'+Math.floor(Math.random()*255);}function getRandomUA(){const uas=['Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36','Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) Safari/604.1','Mozilla/5.0 (Android 13; Mobile; rv:109.0) Firefox/121.0'];return uas[Math.floor(Math.random()*uas.length)];}
+module.exports={createSession,getRotatedIP,getRandomUA};
